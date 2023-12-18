@@ -1,0 +1,14 @@
+.main-entry {
+  margin: 0;
+  /* Set the image URL here */
+  background-image: url('../../../../assets/main-bg.svg');
+  /* Cover the entire viewport with the background image */
+  background-size: cover;
+  /* Center the positioning of the background image */
+  background-position: center;
+  /* Keep the background fixed when scrolling */
+  background-attachment: fixed;
+  /* Adjust background-repeat to avoid repeating the image when necessary */
+  background-repeat: no-repeat;
+  // height: 100vh;
+}

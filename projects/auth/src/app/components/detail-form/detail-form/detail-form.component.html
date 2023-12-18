@@ -1,0 +1,66 @@
+<div class="mt-20 flex-row w-[460px] justify-center">
+  <div class="text-secondary-500 text-3xl tracking-normal font-['Inter-Bold']">Company Details</div>
+  <div class="text-sm mt-2 ml-1 text-neutral-500 font-medium font-['Inter']">Please enter details accordingly.</div>
+  <form [formGroup]="detailForm">
+    <div class="mt-4">
+      <label class="font-['Inter-Bold'] ml-2 text-sm font-bold">Company Name<span class="text-red-600">*</span></label>
+      <input
+        formControlName="name"
+        placeholder="Company Name"
+        type="text"
+        class="block p-2.5 mt-2 mb-3 w-full text-sm text-gray-900 rounded-lg border-[1.5px] border-[#B8B8D3]"
+      />
+
+      <label class="font-['Inter-Bold'] ml-2 text-sm font-bold">User Name<span class="text-red-600">*</span></label>
+      <input
+        formControlName="userName"
+        placeholder="User Name"
+        type="text"
+        class="block p-2.5 mt-2 mb-3 w-full text-sm text-gray-900 rounded-lg border-[1.5px] border-[#B8B8D3]"
+      />
+
+      <label class="font-['Inter-Bold'] ml-2 text-sm font-bold"
+        >How many tools do you use currently?<span class="text-red-600">*</span></label
+      >
+      <input
+        formControlName="numberOfTools"
+        placeholder="Number of tools"
+        type="number"
+        min="1"
+        class="block p-2.5 mt-2 mb-3 w-full text-sm text-gray-900 rounded-lg border-[1.5px] border-[#B8B8D3]"
+      />
+
+      <label class="font-['Inter-Bold'] ml-2 mb-2 text-sm font-bold"
+        >How many employees does your company have?<span class="text-red-600">*</span></label
+      >
+      <div class="mt-2 mb-2">
+        <select2
+          formControlName="numberOfEmployees"
+          [data]="groupDropDownData"
+          [multiple]="false"
+          [placeholder]="'Provide total Employees'"
+        >
+        </select2>
+      </div>
+
+      <label class="font-['Inter-Bold'] ml-2 pt-2 text-sm font-bold">Provide domain name</label>
+      <input
+        formControlName="domain"
+        placeholder="Company domain name"
+        type="text"
+        class="block p-2.5 mt-2 mb-3 w-full text-sm text-gray-900 rounded-lg border-[1.5px] border-[#B8B8D3]"
+      />
+    </div>
+
+    <div>
+      <button
+        [disabled]="!detailForm.valid"
+        (click)="onSubmit()"
+        [ngClass]="!detailForm.valid ? 'opacity-50 cursor-not-allowed hover:opacity-50' : 'cursor-auto'"
+        class="mt-5 font-['Inter-Bold'] items-center w-full h-12 tracking-wide text-lg font-bold text-white bg-primary-500 rounded-xl hover:opacity-90"
+      >
+        Continue
+      </button>
+    </div>
+  </form>
+</div>

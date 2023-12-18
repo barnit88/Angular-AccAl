@@ -1,0 +1,48 @@
+<!-- <div class="content ml-12 h-screen min-h-screen transform ease-in-out duration-500 pt-[3rem] px-2 md:px-5 pb-4">
+  <iframe
+    src="https://app.tango.us/app/embed/d7b8afb5-1a13-43c8-a873-b4afe9c145ba"
+    sandbox="allow-scripts allow-top-navigation-by-user-activation allow-popups allow-same-origin"
+    security="restricted"
+    title="AccAlly - Sign up, Login, Logout"
+    width="100%"
+    height="100%"
+    referrerpolicy="strict-origin-when-cross-origin"
+    frameborder="0"
+    webkitallowfullscreen="webkitallowfullscreen"
+    mozallowfullscreen="mozallowfullscreen"
+    allowfullscreen="allowfullscreen"
+  ></iframe>
+</div> -->
+
+<div class="content ml-12 h-full transform ease-in-out duration-500 pt-[3rem] px-2 md:px-5 pb-4">
+  <div class="px-8">
+    <div class="text-2xl font-extrabold font-[Inter-Bold] text-[#0E0D46]">Need help with anything?</div>
+    <div class="text-[rem] mt-2 font-[Inter] text-[#6F6F6F]">
+      Select the card to view indepth guide for various operations within accally.
+    </div>
+  </div>
+
+  <div class="mt-4 ml-8 flex justify-content-center flex-wrap">
+    <mat-card
+      *ngFor="let help of helpObjects"
+      class="example-card mr-8 mt-6 hover:bg-primary-50 cursor-pointer border-warmGray-500"
+      (click)="openDialog(help)"
+    >
+      <div class="custom-header">
+        <mat-card-header>
+          <mat-card-subtitle class="justify-end">{{ help.category }}</mat-card-subtitle>
+          <mat-card-title class="font-['Inter-Bold']">{{ help.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-icon
+          aria-hidden="false"
+          class="mr-4 text-primary-300 text-2xl"
+          aria-label="Example home icon"
+          fontIcon="{{ help.iconName }}"
+        ></mat-icon>
+      </div>
+      <mat-card-content class="text-sm mt-2 font-[Inter] text-[#6F6F6F]">
+        {{ help.description }}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div [ngClass]="[hideTabSpacing ? '' : 'md:px-5']" class="tab-body h-fit transform ease-in-out duration-500 pt-1">
+  <div>
+    <div
+      [ngClass]="[hideTabSpacing ? '' : 'pl-[3.5rem]']"
+      class="tab-text border-b-[1px] border-neutral-400 flex flex-row pr-10"
+    >
+      <div *ngFor="let tabItem of tabItems" class="w-fit mr-5">
+        <div
+          class="text-[1rem] text-neutral-900 font-[Inter] font-[400] pl-4 pr-4 pt-4 pb-[0.6rem] cursor-pointer"
+          (click)="tabChange(tabItem)"
+        >
+          {{ tabItem.item }}
+        </div>
+        <div [ngClass]="[tabItem.active ? 'h-[4px] bg-primary-500 rounded-full' : '']"></div>
+      </div>
+    </div>
+    <div class="px-10">
+      <ng-container [ngSwitch]="active">
+        <div *ngFor="let tabItem of tabItems">
+          <ng-container *ngIf="tabItem.detail || tabItem.title">
+            <div class="pb-[1.9rem] pt-[2.6rem]" *ngSwitchCase="tabItem.item">
+              <h1 class="text-secondary-700 font-[Inter-Bold] font-[600] text-[2rem]">{{ tabItem.title }}</h1>
+              <p class="text-neutral-500 font-[Inter] font-[400] text-[1.1rem] mt-[0.6rem]">
+                {{ tabItem.detail }}
+              </p>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

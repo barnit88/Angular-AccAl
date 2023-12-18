@@ -1,0 +1,68 @@
+textarea:focus,
+input:focus {
+  box-shadow: 0 0 0 1px #b8b8d3;
+  border: 1px solid #b8b8d3 !important;
+}
+button:focus {
+  box-shadow: 0 0 0 1px #b8b8d3;
+}
+textarea,
+input {
+  outline: none;
+  border: 1px solid #b8b8d3;
+}
+
+/* For Angular Select2 */
+
+:host::ng-deep .setting-select .select2-selection,
+.select2-selection--single {
+  border-color: #b8b8d3 !important;
+  height: 2.5rem !important;
+  border-radius: 10px !important;
+}
+
+:host::ng-deep .setting-select .select2-focused {
+  outline: none;
+  border-color: #b8b8d3 !important;
+  height: 2.5rem !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 0 1px #b8b8d3 !important;
+}
+
+:host::ng-deep .select2-container--focus {
+  outline: none;
+  border-radius: 10px !important;
+  box-shadow: 0 0 0 1px #b8b8d3 !important;
+}
+
+:host::ng-deep .setting-select .select2-selection__rendered {
+  font-size: 18px !important;
+  padding: 5px !important;
+}
+
+:host::ng-deep .setting-select span.select2-selection__arrow::before,
+span.select2-selection__arrow::after {
+  content: none !important;
+}
+
+:host::ng-deep .setting-select span.select2-selection__arrow {
+  background: url('assets/icons/dropdown-arrow.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 10px !important;
+  margin-right: 20px;
+}
+
+:host::ng-deep .setting-select .select2-dropdown,
+.select2-dropdown--below {
+  outline: none;
+  border-radius: 0px 0px 10px 10px !important;
+  border-width: 0px 1px 1px 1px;
+  border-color: #b8b8d3 !important;
+  box-shadow: 0 0 0 1px #b8b8d3 !important;
+  transform: translate(0px, -10px) !important;
+}
+
+:host::ng-deep .setting-select .select2-search__field {
+  color: #79767dff;
+}

@@ -1,0 +1,25 @@
+name: Deploy Gotham (Build Test)
+
+on:
+  pull_request:
+    types:
+      - synchronize
+  push:
+    branches-ignore:
+      - develop
+      - main
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create environment-var.service.ts
+        run: |
+          echo ${{secrets.SB_ENV}} | base64 --decode > projects/shared/src/lib/environment-var.service.ts
+
+      - name: Build Docker image
+        run: docker build --build-arg sourceMap=false --build-arg denv=production -t build-test-image --target=builder .

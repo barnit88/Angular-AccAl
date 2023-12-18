@@ -1,0 +1,15 @@
+<div class="alert-container">
+  <div class="p-4 mb-4 text-sm rounded-lg h-61 align-middle text-center" role="alert">
+    <div class="chart-labels top-right">Active Users</div>
+    <div class="chart-container">
+      <canvas
+        baseChart
+        class="chart"
+        [data]="doughnutChartData"
+        [options]="doughnutChartOptions"
+        [type]="doughnutChartType"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>

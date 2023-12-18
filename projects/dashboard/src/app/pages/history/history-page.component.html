@@ -1,0 +1,100 @@
+<div
+  class="content bg-white ml-12 h-screen transform ease-in-out duration-500 pt-20 px-2 md:px-5 pb-4"
+  (click)="navClose($event)"
+>
+  <div class="pl-[2.2rem]">
+    <!-- Head -->
+    <div class="mb-[2rem]">
+      <div class="mb-[0.65rem]">
+        <h3 class="font-[Inter] font-[600] text-[2rem] text-secondary-600">History</h3>
+      </div>
+      <div class="w-[30%]">
+        <form>
+          <div class="relative h-[3.75rem]">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+            <input
+              id="default-search"
+              class="block w-full h-full p-2 pl-10 text-gray-900 border-2 rounded-[0.25rem] border-secondary-50 bg-white placeholder:text-neutral-500 placeholder:font-[Inter] placeholder:font-[400] placeholder:text-[1rem]"
+              placeholder="Search History"
+              required
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--  -->
+
+    <!--  -->
+    <div class="flex justify-between mb-[1rem]" (click)="check()">
+      <div>
+        <span class="text-secondary-600 font-[Inter] font-[600] text-[2rem]">All</span>
+      </div>
+      <div class="pr-[10rem] flex relative">
+        <div (click)="toogleNav($event)" class="flex cursor-pointer">
+          <!-- (click)="toogleNav($event)" -->
+          <div>
+            <img src="../../../assets/icons/union.svg" class="w-[1.25rem] pt-[4px]" />
+          </div>
+          <div class="float-left whitespace-nowrap text-[1.25rem] font-[Inter] font-[500] text-secondary-600">
+            <span class="whitespace-nowrap text-[1.25rem] font-[Inter] font-[500] text-secondary-600">
+              &nbsp;&nbsp;Filter By Date&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+          </div>
+        </div>
+        <!-- Nav items -->
+        <div
+          *ngIf="navOpen"
+          class="absolute top-[2rem] left-[0.5rem] rounded-[0.75rem] p-[1rem] flex flex-col z-40 bg-white nav-shadow"
+        >
+          <div
+            *ngFor="let item of ['Today', 'This Week', 'This Month']"
+            class="p-[0.5rem] m-[2px] rounded-[0.25rem] flex justify-center items-center hover:bg-primary-50 cursor-pointer"
+          >
+            <span class="font-[Poppins] font-[500] text-[1.125rem] text-neutral-900">{{ item }}</span>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+    </div>
+    <!--  -->
+
+    <div>
+      <div class="mb-[3.15rem]">
+        <div class="h-[2rem] mb-[0.375rem]">
+          <span class="font-[Inter] text-[1.15rem] text-neutral-900">Recent</span>
+        </div>
+        <div>
+          <div *ngFor="let item of cardData" class="mb-[0.5rem]">
+            <app-card [data]="item"></app-card>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="h-[2rem] mb-[0.375rem]">
+          <span class="font-[Inter] text-[1.15rem] text-neutral-900">Yesterday - Sunday, March 8,2022</span>
+        </div>
+        <div>
+          <div *ngFor="let item of cardData" class="mb-[0.5rem]">
+            <app-card [data]="item"></app-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

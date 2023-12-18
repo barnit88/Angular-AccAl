@@ -1,0 +1,58 @@
+<div class="min-w-[500px]">
+  <div class="px-4 py-5 sm:p-6 text-[#131339]">
+    <form class="text-[#131339]" [formGroup]="form!.group">
+      <!--For form name/hedaers-->
+      <div class="mb-4 flex justify-between">
+        <label for="username" class="block text-inherit font-bold mb-2">{{ form?.name }}</label>
+        <div class="right-0">
+          <img src="{{ form?.logo }}" class="w-6 h-6" />
+        </div>
+      </div>
+
+      <div class="mb-4" *ngFor="let field of form?.fields">
+        <div *ngIf="field.type == 'text_field'">
+          <label class="text-xs">{{ field.label }}</label>
+          <input
+            class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-500"
+            [type]="field.input_type"
+            [formControlName]="field.tag"
+            defaultValue="{{ field.value }}"
+          />
+        </div>
+
+        <div *ngIf="field.type == 'json'">
+          <label class="text-xs">{{ field.label }}</label>
+          <textarea
+            rows="4"
+            class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-500"
+            [formControlName]="field.tag"
+            >{{ field.value }}</textarea
+          >
+        </div>
+
+        <div *ngIf="field.type == 'text'">
+          <p>{{ field.value }}</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2">
+        <button
+          style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), -2px -2px 4px rgba(0, 0, 0, 0.25)"
+          class="bg-white hover:bg-slate-300 shadow p-4 font-bold py-2 px-4 rounded mr-2 text-[#5B1D78]"
+          type="button"
+          (click)="close()"
+        >
+          Cancel
+        </button>
+        <button
+          style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), -2px -2px 4px rgba(0, 0, 0, 0.25)"
+          class="bg-[#5B1D77] hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+          type="submit"
+          (click)="onSubmit()"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

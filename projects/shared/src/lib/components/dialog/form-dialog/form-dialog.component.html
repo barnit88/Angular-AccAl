@@ -1,0 +1,326 @@
+<div class="w-[45rem] px-2 rounded-3xl mb-7 mt-3">
+  <div class="px-8 py-8 sm:p-6 text-[#131339]">
+    <div *ngIf="data.containerTitle">
+      <h3 class="font-['Inter'] font-[700] text-[1.5rem] text-neutral-900 mb-[1rem]">
+        {{ data.containerTitle }}
+      </h3>
+    </div>
+    <div *ngIf="data.containerText">
+      <p class="font-['Inter'] text-neutral-900 mt-[1rem] mb-[1rem]">
+        {{ data.containerText }}
+      </p>
+    </div>
+    <form class="text-[#131339] font-['Inter']" [formGroup]="form!.group" (keydown.enter)="$event.preventDefault()">
+      <!-- FORM COMPONENT FOR INTEGRATIONS-->
+      <ng-container *ngIf="data?.type === 'integration'">
+        <div class="mb-4 flex justify-between">
+          <label for="username" class="text-inherit font-bold mb-2">Add Application</label>
+          <div class="right-0 flex">
+            <img src="{{ form?.logo }}" class="w-6 h-6 mr-2" />
+            <div class="text-inherit font-bold mb-2">
+              {{ form?.name }} |
+              <span
+                (click)="helpFaqNav(form?.['faq_url'] || '')"
+                class="btn-link text-xs underline text-primary-500 hover:text-primary-800"
+                >Steps to Integrate</span
+              >
+            </div>
+          </div>
+        </div>
+        <ng-container *ngTemplateOutlet="defaultFormTempalte"></ng-container>
+      </ng-container>
+
+      <!-- FORM COMPONENT FOR USER DETAILS/OPERATION-->
+      <ng-container *ngIf="data?.type === 'operation'">
+        <div class="justify-end flex">
+          <img src="{{ form?.logo }}" class="w-6 h-6 mr-2" />
+          <div class="text-inherit font-bold mb-2">{{ form?.platform }}</div>
+        </div>
+        <div>
+          <app-tabs
+            *ngIf="tabItems.length"
+            [hideTabSpacing]="true"
+            [tabItems]="tabItems"
+            (activeTab)="getActiveTab($event)"
+          ></app-tabs>
+          <div>
+            <ng-container [ngSwitch]="active">
+              <div *ngSwitchCase="'User Information'">
+                <div class="w-[100%] mt-4">
+                  <ng-container *ngTemplateOutlet="userInformation"></ng-container>
+                  <ng-container *ngTemplateOutlet="defaultFormTempalte"></ng-container>
+                </div>
+              </div>
+              <div *ngSwitchCase="'SSO Apps Info'">
+                <div class="w-[100%] mt-2">
+                  <ng-container *ngTemplateOutlet="ssoTable"></ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!--Tabulates stuffs end-->
+        <ng-container *ngIf="!tabItems.length">
+          <div class="text-inherit font-bold mb-2">{{ form?.name }}</div>
+          <ng-container *ngTemplateOutlet="userInformation"></ng-container>
+          <ng-container *ngTemplateOutlet="defaultFormTempalte"></ng-container>
+        </ng-container>
+
+        <ng-template #userInformation>
+          <div class="container mx-auto">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="font-semibold text-inherit" for="first-name">First Name</label>
+                <div class="text-[#6F6F6F] text-sm">
+                  {{ form?.first_name }}
+                </div>
+              </div>
+              <div>
+                <label class="font-semibold text-inherit" for="first-name">Last Name</label>
+                <div class="text-[#6F6F6F] text-sm">
+                  {{ form?.last_name }}
+                </div>
+              </div>
+              <div>
+                <label class="font-semibold mt-3 text-inherit" for="real-name">2Fa Status</label>
+                <div class="text-[#6F6F6F] text-sm">
+                  {{ form?.is_2fa_activated }}
+                </div>
+              </div>
+              <div>
+                <label class="font-semibold mt-3 text-inherit" for="real-name">Email</label>
+                <div class="text-[#6F6F6F] text-sm">
+                  {{ form?.email }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+
+      <!-- FORM COMPONENT FOR REST OF THE BUILDS-->
+      <ng-container *ngIf="data?.type === 'add-member'">
+        <ng-container *ngTemplateOutlet="defaultFormTempalte"></ng-container>
+      </ng-container>
+
+      <ng-template #defaultFormTempalte>
+        <div class="mb-4" *ngFor="let field of form?.fields">
+          <div *ngIf="field.type == 'title_text'" class="block text-inherit font-bold mb-2">{{ field.label }}</div>
+
+          <!-- Text Field -->
+          <div *ngIf="field.type == 'text_field'">
+            <label class="text-xs">{{ field.label }}</label>
+            <input
+              class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-500"
+              [type]="field.input_type"
+              [formControlName]="field.tag"
+              defaultValue="{{ field.value }}"
+            />
+          </div>
+
+          <!-- JSON -->
+          <div *ngIf="field.type == 'json'">
+            <label class="text-xs">{{ field.label }}</label>
+            <textarea
+              rows="4"
+              class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-500"
+              [formControlName]="field.tag"
+              >{{ field.value }}</textarea
+            >
+          </div>
+
+          <!-- Remove Label Button  -->
+          <div *ngIf="field.type == 'user-remove'">
+            <div class="flex flex-row justify-between">
+              <div class="flex flex-row px-[1rem] py-[0.5rem]">
+                <img
+                  class="h-[1.7rem] w-[1.7rem] mr-[0.5rem] object-cover rounded-full"
+                  [src]="field.label_user_img_src"
+                />
+                <span class="font-[Inter] text-[1.125rem] font-[600] text-neutral-900">{{ field.label_user }}</span>
+              </div>
+              <div>
+                <button
+                  class="rounded-[0.625rem] bg-red-600 text-white text-center px-[1rem] py-[0.5rem]"
+                  type="button"
+                  (click)="field?.onClick()"
+                >
+                  Remove User
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="field.type == 'switch'">
+            <div class="flex flex-row justify-between">
+              <div class="flex text-inherit">{{ field.label }}</div>
+              <div class="flex">
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input [formControlName]="field.tag" type="checkbox" value="" class="sr-only peer" />
+                  <div
+                    class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#5B1D78]"
+                  ></div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!--For select inputs-->
+          <div *ngIf="field.type == 'select'" class="setting-select z-10">
+            <div>
+              <label class="text-xs">{{ field.label }}</label>
+            </div>
+            <select2
+              [formControlName]="field.tag"
+              [data]="field.option"
+              [placeholder]="'Select ' + field.tag.charAt(0).toUpperCase() + field.tag.slice(1)"
+              [multiple]="false"
+              [class]="
+                'h-[50px] rounded-[10px] text-white border-secondary-100 focus:outline-none focus:border-purple-500'
+              "
+            >
+            </select2>
+          </div>
+          <!--  -->
+
+          <!-- Multi Select -->
+          <div *ngIf="field.type == 'option'">
+            <label class="flex text-inherit">{{ field.label }}</label>
+            <select2
+              [listPosition]="'above'"
+              [formControlName]="field.tag"
+              [data]="field?.dropdown_option || []"
+              placeholder="Select {{ field.label }}"
+              [multiple]="true"
+              class="bg-blue-500 text-white rounded-md border-transparent focus:outline-none focus:border-purple-500"
+            >
+            </select2>
+          </div>
+          <!--  -->
+
+          <!-- Text Information -->
+          <div *ngIf="field.type == 'text'">
+            <p>{{ field.value }}</p>
+          </div>
+          <!--  -->
+        </div>
+
+        <div class="flex justify-end gap-2 mt-8 mb-4">
+          <button
+            style="box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1), -1px -1px 5px 2px rgba(0, 0, 0, 0.1)"
+            class="bg-white shadow p-4 font-bold py-2 px-4 rounded mr-2 text-[#5B1D78]"
+            type="cancel"
+            (click)="close()"
+          >
+            Cancel
+          </button>
+          <div *ngIf="data.type === 'settings'">
+            <button
+              style="box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1), -1px -1px 5px 2px rgba(0, 0, 0, 0.1)"
+              class="bg-[#5B1D77] text-white font-bold py-2 px-4 rounded"
+              type="submit"
+              (click)="onSubmit()"
+            >
+              <span [hidden]="loading">Confirm</span>
+              <span [hidden]="!loading">
+                <img height="30" width="30" src="assets/images/loader-white.svg" />
+              </span>
+            </button>
+          </div>
+          <div *ngIf="data.type != 'settings'">
+            <button
+              style="box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1), -1px -1px 5px 2px rgba(0, 0, 0, 0.1)"
+              class="bg-[#5B1D77] text-white font-bold py-2 px-4 rounded"
+              type="submit"
+              [disabled]="!form?.group?.valid"
+              [ngClass]="{ 'opacity-50 cursor-not-allowed': form?.group?.invalid }"
+              (click)="onSubmit()"
+            >
+              <span [hidden]="loading">Submit</span>
+              <span [hidden]="!loading">
+                <img height="30" width="30" src="assets/images/loader-white.svg" />
+              </span>
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </form>
+  </div>
+</div>
+
+<ng-template #ssoTable>
+  <div class="container mx-auto pr-[3.5]">
+    <div class="overflow-x-auto">
+      <div class="py-2 align-middle inline-block min-w-full">
+        <div class="px-4 py-2 shadow-md flex items-center justify-center text-[#6F6F6F] text-sm mb-3">
+          SSO Apps Info for:
+          <span class="ml-2 text-primary-500 text-base font-['Inter-Semi']"
+            >{{ form?.first_name }} {{ form?.last_name }}</span
+          >
+        </div>
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <div class="scrollable-div">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50 sticky top-0">
+                <tr>
+                  <th
+                    scope="col"
+                    class="rounded-l px-3 py-2 text-left text-sm font-['Inter-Semi'] text-gray-500 uppercase tracking-wider"
+                  >
+                    Name
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-3 py-2 text-left text-sm font-['Inter-Semi'] text-gray-500 uppercase tracking-wider"
+                  >
+                    First Active
+                  </th>
+                  <th
+                    scope="col"
+                    class="rounded-r px-3 py-2 text-left text-sm font-['Inter-Semi'] text-gray-500 uppercase tracking-wider"
+                  >
+                    Last Active
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- use *ngFor to loop through the data array -->
+                <ng-container *ngFor="let item of data?.sso; let i = index">
+                  <tr
+                    [ngClass]="{
+                      'bg-primary-100 shadow': i % 2 === 0,
+                      'bg-primary-50 shadow': i % 2 === 1
+                    }"
+                  >
+                    <td class="px-3 py-2 whitespace-nowrap rounded-l">
+                      {{ item.name | slice : 0 : 20 }}{{ item.name.length > 20 ? '...' : '' }}
+                    </td>
+
+                    <td class="px-3 py-2 whitespace-nowrap">
+                      {{ item.first_active | date : 'mediumDate' }}
+                    </td>
+
+                    <td class="px-3 py-2 whitespace-nowrap rounded-r">
+                      {{ item.last_active | date : 'mediumDate' }}
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-2 mt-8 mb-4">
+    <button
+      style="box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1), -1px -1px 5px 2px rgba(0, 0, 0, 0.1)"
+      class="bg-white shadow p-4 font-bold py-2 px-4 rounded mr-2 text-[#5B1D78]"
+      type="cancel"
+      (click)="close()"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

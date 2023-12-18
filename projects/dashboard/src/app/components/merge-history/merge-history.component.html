@@ -1,0 +1,62 @@
+<div class="text-[#131339]">
+  <div>
+    <h3 class="font-['Inter-Bold'] text-lg ml-9 pt-4 mr-3 text-neutral-900 mt-1 mb-1 flex justify-between">
+      {{ data.mergeInit === true ? 'Merge Info' : 'Merged History' }}
+      <div mat-icon-button mat-dialog-close>
+        <mat-icon><img class="cursor-pointer hover:opacity-75" src="assets/icons/dialogCross.svg" /></mat-icon>
+      </div>
+    </h3>
+  </div>
+  <div class="px-9">
+    <div *ngIf="data.mergeInit; else mergeHistory" class="font-['Inter'] text-neutral-900 mt-1 mb-1">
+      This shows how the merge will look like.<br />
+
+      <div class="mt-2">
+        <span class="px-1 py-1 mt-2 border-2 bg-primary-100 rounded-lg badge"
+          >Please click confirm to merge the users.</span
+        >
+      </div>
+    </div>
+    <ng-template #mergeHistory>
+      <p class="font-['Inter'] text-neutral-900 mt-1 mb-1">
+        The user information with all merged credentials and access.
+      </p>
+    </ng-template>
+  </div>
+</div>
+<div class="px-9 py-4 w-[35rem]">
+  <div class="grid grid-cols-2 gap-4 mt-2 mb-3">
+    <div class="flex-col">
+      <div class="font-['Inter-Semi'] font-[500]">Name</div>
+      <div>{{ data.full_name }}</div>
+    </div>
+    <div class="flex-col">
+      <div class="font-['Inter-Semi'] font-[500]">Mail</div>
+      <div>{{ data.email }}</div>
+    </div>
+  </div>
+
+  <hr class="bg-primary-600 mb-3" />
+
+  <div *ngFor="let mergeInfo of data.merged_profiles; let i = index" class="mb-4">
+    <div class="font-['Inter-Semi'] text-sm mb-2">{{ i + 1 }}. {{ mergeInfo.email }}</div>
+    <div class="p-2 text-neutral-500 px-2 text-sm border border-primary-100 border-opacity-30 rounded-lg">
+      <div>Email: {{ mergeInfo.email }}</div>
+      <div>Merged By: {{ mergeInfo.merged_by.full_name }}</div>
+      <div>Merged On: {{ mergeInfo.merged_on }}</div>
+      <div>Services: {{ mergeInfo.services.join(', ') }}</div>
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <div *ngIf="data.mergeInit">
+      <button
+        style="box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1), -1px -1px 5px 2px rgba(0, 0, 0, 0.1)"
+        class="bg-[#5B1D77] cursor-pointer hover:opacity-70 text-white font-bold py-2 px-4 rounded"
+        type="button"
+        (click)="initMerge()"
+      >
+        <span>Confirm</span>
+      </button>
+    </div>
+  </div>
+</div>

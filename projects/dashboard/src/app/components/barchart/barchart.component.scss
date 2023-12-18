@@ -1,0 +1,64 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.dropdown-container {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+}
+
+.alert-container {
+  position: relative;
+  width: 90%;
+  max-height: 340px;
+}
+
+.chart {
+  width: 100%;
+  height: 320px !important;
+  margin-top: -20px;
+}
+
+select {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #4b5563;
+  cursor: pointer;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.chart-labels {
+  font-size: 1rem;
+  color: #4b5563;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.chart-title {
+  font-size: 13px;
+  color: #888888;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+}
+
+.chart-labels.top-right {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

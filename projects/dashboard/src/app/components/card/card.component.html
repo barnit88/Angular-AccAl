@@ -1,0 +1,62 @@
+<div>
+  <ng-container *ngTemplateOutlet="accessReview; context: { cardData: data }"></ng-container>
+  <ng-container *ngTemplateOutlet="history; context: { cardData: data }"></ng-container>
+</div>
+
+<ng-template #accessReview let-data="cardData">
+  <div
+    *ngIf="data.cardType == 'accessReview'"
+    class="flex flex-wrap w-full rounded-[1rem] h-[7.5rem] bg-neutral-50 my-[0.625rem] overflow-hidden border-[2px] border-solid border-neutral-50"
+  >
+    <div class="items-center w-[7.5rem] relative">
+      <div class="relative top-[2.2rem] left-[1.9rem] p-[0.75rem] w-fit h-fit bg-white rounded-[1rem]">
+        <figure class="bg-white w-[2.5rem] h-[2.5rem]">
+          <img src="{{ data.accessReviewCard.imgSrc }}" />
+        </figure>
+      </div>
+    </div>
+    <div class="flex flex-grow flex-wrap pr-[10px]">
+      <div class="w-[70%] mt-[25px]">
+        <header class="text-neutral-900 font-[Inter] font-[600] text-[20px]">{{ data.accessReviewCard.header }}</header>
+        <section class="mt-[10px] text-neutral-500 font-[Poppins] font-[400] text-[14px]">
+          <p>Period Covered : {{ data.accessReviewCard.period }} months</p>
+          <p>Reviewed By : {{ data.accessReviewCard.reviewer }}</p>
+        </section>
+      </div>
+      <div class="w-[30%] pr-[20px]">
+        <div class="pt-[22px] flex flex-col items-end">
+          <p class="float-right mb-[4px] mt-[10px] text-neutral-500 font-[Poppins] font-[400] text-[16px]">
+            Created at : {{ data.accessReviewCard.createdDate }}
+          </p>
+          <button class="mt-[10px] rounded-[5px] bg-red-500 text-white text-[14px] float-right p-[6px] w-fit">
+            <span class="whitespace-nowrap font-[Inter-Semi]">Download PDF&nbsp;&nbsp;</span>
+            <!-- <span><img src="../../../assets/icons/gear.svg"/></span> -->
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #history let-data="cardData">
+  <div
+    *ngIf="data.cardType == 'history'"
+    class="flex flex-wrap w-full rounded-[1rem] h-[5rem] bg-neutral-50 overflow-hidden border-[2px] border-solid border-neutral-50"
+  >
+    <div class="items-center mx-[1.9rem] flex">
+      <div class="w-fit h-fit bg-white rounded-[1rem] items-center justify-center p-[0.8rem]">
+        <figure class="bg-white w-[2.5rem] h-[2.5rem]">
+          <img src="{{ data.historyCard.imgSrc }}" class="w-full h-full" />
+        </figure>
+      </div>
+    </div>
+    <div class="flex flex-grow">
+      <div class="w-[80%] flex items-center px-[0.5rem]">
+        <p class="font-[Inter] font-[600] text-[1.25rem]">{{ data.historyCard.header }}</p>
+      </div>
+      <div class="w-[20%] flex items-center px-[0.5rem]">
+        <p class="font-[Inter] font-[400] text-[1.125rem]">{{ data.historyCard.time }}</p>
+      </div>
+    </div>
+  </div>
+</ng-template>

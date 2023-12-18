@@ -1,0 +1,25 @@
+<div class="alert-container">
+  <div class="p-4 mb-4 text-sm rounded-lg h-61 align-middle text-center" role="alert">
+    <div class="dropdown-container">
+      <select [(ngModel)]="selectedIntegration" (change)="onIntegrationChange()">
+        <option *ngFor="let integrationData of data" [value]="integrationData.integration">
+          {{ integrationData.integration }}
+        </option>
+      </select>
+    </div>
+    <div class="chart-labels top-right">Users</div>
+    <div class="chart-container position-relative">
+      <canvas
+        baseChart
+        class="chart"
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [type]="barChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"
+      ></canvas>
+    </div>
+    <div class="chart-title position-relative text-center">Active Users</div>
+  </div>
+</div>

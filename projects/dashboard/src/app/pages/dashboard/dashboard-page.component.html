@@ -1,0 +1,61 @@
+<div class="content md:ml-12 h-auto min-h-screen transform ease-in-out duration-500 pt-1 px-2 md:px-5 pb-4">
+  <div class="flex flex-wrap my-5 -mx-2">
+    <div class="w-full">
+      <div class="transform ease-in-out duration-500">
+        <img
+          class="object-cover rounded-2xl w-full h-16 sm:h-32"
+          src="assets/images/dashboardHeaderGraphicsSized.svg"
+        />
+        <div class="flex flex-row w-full fixed mr-10 top-7 sm:top-12 justify-center">
+          <div
+            *ngFor="let integration of availableIntegrations"
+            class="h-6 w-6 -top-10 sm:h-12 sm:w-12 sm:top-8 bg-white rounded-xl ml-5 text-white"
+          >
+            <img
+              [src]="integration.logo"
+              *ngIf="integration.enabled"
+              alt="Logo"
+              class="h-4 m-1 w-4 sm:h-8 sm:m-2 sm:w-8"
+            />
+          </div>
+          <div
+            (click)="goToIntegrationPage()"
+            class="top-8 h-6 w-6 sm:h-12 sm:w-12 bg-white rounded-xl ml-5 text-white"
+          >
+            <img src="assets/images/div.svg" alt="Logo" class="h-6 w-6 sm:h-12 sm:w-12 cursor-pointer" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="flex flex-row justify-evenly">
+    <div class="grow px-2 pl-3">
+      <div class="card"><app-barchart></app-barchart></div>
+    </div>
+    <div class="grow px-2 pr-3">
+      <div class="card"><app-piechart></app-piechart></div>
+    </div>
+  </div> -->
+
+  <div
+    class="flex flex-row mt-5 justify-center w-full transform ease-in-out duration-500"
+    [ngClass]="[isNavOpen ? '' : 'w-full']"
+  >
+    <app-table
+      *ngIf="availableIntegrations.length"
+      [availableIntegrations]="availableIntegrations"
+      (userClick)="userClicked($event)"
+      [isNavOpen]="isNavOpen"
+      class="w-full"
+    ></app-table>
+    <div class="text-inherit flex flex-col justify-center" *ngIf="!availableIntegrations.length">
+      <div class="m-auto">
+        <img width="40px" src="assets/images/loader.svg" />
+      </div>
+      <span class="font-['Inter-Bold']">Make Sure You Have Platforms Integrated!!</span>
+    </div>
+  </div>
+</div>
+
+<app-popup [data]="data"></app-popup>

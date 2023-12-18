@@ -1,0 +1,81 @@
+<!-- <acc-auth-header"></acc-auth-header> -->
+<div class="flex justify-center align-middle main-entry">
+  <div class="flex flex-col items-center justify-center h-screen">
+    <h1 class="text-3xl text-primary-500 font-['Inter-Bold'] mb-4">Verify Your OTP</h1>
+    <p class="mb-8">Please enter the 6-digit code sent to your email.</p>
+    <form id="verify-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="flex items-center justify-center font-['Inter']">
+        <input
+          type="text"
+          formControlName="1"
+          class="w-12 h-12 text-primary-600 text-4xl font-bold text-center border border-primary-400 rounded-md mr-2"
+          maxlength="1"
+          tabindex="1"
+        />
+        <input
+          type="text"
+          formControlName="2"
+          class="w-12 h-12 text-primary-600 text-4xl font-bold text-center border border-primary-400 rounded-md mr-2"
+          maxlength="1"
+          tabindex="2"
+        />
+        <input
+          type="text"
+          formControlName="3"
+          class="w-12 h-12 text-primary-600 text-4xl font-bold text-center border border-primary-400 rounded-md mr-2"
+          maxlength="1"
+          tabindex="3"
+        />
+        <input
+          type="text"
+          formControlName="4"
+          class="w-12 h-12 text-primary-600 text-4xl font-bold text-center border border-primary-400 rounded-md mr-2"
+          maxlength="1"
+          tabindex="4"
+        />
+        <input
+          type="text"
+          formControlName="5"
+          class="w-12 h-12 text-primary-600 text-4xl font-bold text-center border border-primary-400 rounded-md mr-2"
+          maxlength="1"
+          tabindex="5"
+        />
+        <input
+          type="text"
+          formControlName="6"
+          class="w-12 h-12 text-primary-600 text-4xl font-bold text-center border border-primary-400 rounded-md"
+          maxlength="1"
+          tabindex="6"
+        />
+      </div>
+      <div class="flex items-center justify-center">
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          [ngClass]="form.invalid ? 'pointer-events-none opacity-80' : 'cursor-pointer'"
+          class="bg-primary-500 hover:bg-primary-700 font-['Inter'] text-white font-bold py-2 px-4 rounded mt-8"
+        >
+          Verify
+        </button>
+      </div>
+    </form>
+    <div
+      (click)="resendVerification()"
+      class="font-['Inter'] flex justify-center text-sm mt-4 text-primary-500 font-medium cursor-pointer tracking-wide hover:underline"
+    >
+      <p>Didn't get one? Resend again!</p>
+    </div>
+    <div
+      *ngIf="verificationSent"
+      class="font-['Inter'] flex transform ease-in-out duration-500 justify-center font-bold text-sm mt-4 text-teal-900 tracking-wide"
+    >
+      <p>Verification sent, check your email.</p>
+    </div>
+    <div
+      *ngIf="errorOtp"
+      class="font-['Inter'] flex transform fade duration-500 justify-center font-bold text-sm mt-4 text-red-700 tracking-wide"
+    >
+      <p>Uhh oh! Either wrong or expired OTP, Hit Resend again to get a new one.</p>
+    </div>
+  </div>
+</div>

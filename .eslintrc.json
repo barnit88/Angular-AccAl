@@ -1,0 +1,32 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["@typescript-eslint"],
+  "ignorePatterns": ["dist/"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "angular": "readonly"
+  },
+  "settings": {
+    "ecmascript": 2022,
+    "typescript": {
+      "tsconfigRootDir": "."
+    }
+  }
+}

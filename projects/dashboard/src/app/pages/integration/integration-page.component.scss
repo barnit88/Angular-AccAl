@@ -1,0 +1,25 @@
+.loading-image {
+  // background-image: url('projects/dashboard/src/assets/images/loader.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100px;
+  /* Adjust the height based on your loading image size */
+}
+
+.mat-slide-toggle {
+  letter-spacing: 0.05em;
+  color: #531a6dff;
+  font-family: 'Inter-Bold', sans-serif;
+  font-weight: 700;
+}
+
+.custom-toggle .mat-slide-toggle-content {
+  /* The 700 weight makes the text bold */
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+.tooltip-space {
+  white-space: pre-line;
+}

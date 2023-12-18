@@ -1,0 +1,19 @@
+<div class="content z-0 h-[90vh] w-[80vw] transform ease-in-out mt-4 mb-4 px-4">
+  <button
+    (click)="closeDailog()"
+    class="absolute -top-9 -right-4 m-6 p-2 z-20 bg-red-500 rounded-full text-white"
+    title="Close"
+  >
+    &times;
+  </button>
+  <iframe
+    [src]="data.url"
+    sandbox="allow-scripts allow-top-navigation-by-user-activation allow-popups"
+    security="restricted"
+    title="AccAlly - Sign up, Login, Logout"
+    width="100%"
+    height="100%"
+    referrerpolicy="strict-origin-when-cross-origin"
+    frameborder="0"
+  ></iframe>
+</div>

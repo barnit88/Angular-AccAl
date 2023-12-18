@@ -1,0 +1,40 @@
+<div class="flex justify-center">
+  <div *ngIf="login">
+    <p class="font-['Inter'] hidden md:block leading-[60px] mt-10 tracking-wide font-bold text-5xl text-white">
+      Ready to secure and<br />
+      scale your business<br />
+      through AccAlly?
+    </p>
+
+    <p class="font-['Inter'] hidden md:block leading-snug mt-10 tracking-wide font-medium text-xl text-white">
+      Simplify, secure, and easily manage user access with<br />
+      maximum optimization.
+    </p>
+  </div>
+  <div *ngIf="!login">
+    <p class="font-['Inter'] hidden md:block leading-[60px] mt-10 tracking-wide font-bold text-5xl text-white">
+      Safe guarding Your<br />
+      User-Access, Securing<br />
+      Your Business
+    </p>
+
+    <div class="hidden md:flex flex-row mt-8">
+      <div><img src="assets/checkbox.svg" /></div>
+      <div class="font-['Inter'] ml-4 leading-tight tracking-wide font-medium text-xl text-white">
+        Easy and user-friendly setup
+      </div>
+    </div>
+
+    <div class="hidden md:flex flex-row mt-8">
+      <div><img src="assets/checkbox.svg" /></div>
+      <div class="font-['Inter'] ml-4 leading-tight tracking-wide font-medium text-xl text-white">No coding needed</div>
+    </div>
+
+    <div class="hidden md:flex flex-row mt-8">
+      <div><img src="assets/checkbox.svg" /></div>
+      <div class="font-['Inter'] ml-4 leading-tight tracking-wide font-medium text-xl text-white">
+        Free up to 10 users
+      </div>
+    </div>
+  </div>
+</div>

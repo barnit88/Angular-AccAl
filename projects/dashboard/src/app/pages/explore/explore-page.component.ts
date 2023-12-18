@@ -1,0 +1,8 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-explore',
+  templateUrl: './explore-page.component.html',
+  styleUrls: ['./explore-page.component.scss'],
+})
+export class ExplorePageComponent {}

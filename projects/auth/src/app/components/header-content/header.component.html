@@ -1,0 +1,9 @@
+<div class="hidden lg:flex h-14 flex-row w-full bg-white justify-between">
+  <div class="ml-32 cursor-pointer p-[1rem]" (click)="navToHome()">
+    <!-- <img src="assets/officialLogo.png" class="h-[30px] w-[30px]" /> -->
+    <img [src]="logoSrc" class="-mt-2" />
+  </div>
+  <div class="mr-32 cursor-pointer">
+    <div (click)="contactUs()" class="text-primary-900 contactUs font-['Inter-Semi']">Contact Us</div>
+  </div>
+</div>

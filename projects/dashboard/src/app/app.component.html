@@ -1,0 +1,10 @@
+<div (click)="closeAllOpenNavBars()">
+  <app-menu [user]="userName"></app-menu>
+  <div
+    (click)="shrinkMenu()"
+    class="transform bg-white ease-in-out duration-500"
+    [ngClass]="[isNavOpen ? 'margin-left' : 'ml-0', isDark ? 'dark:bg-[#030b20]' : 'bg-white']"
+  >
+    <router-outlet></router-outlet>
+  </div>
+</div>

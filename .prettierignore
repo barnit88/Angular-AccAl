@@ -1,0 +1,11 @@
+# Ignore Artifacts
+.angular/
+.github/
+.husky/
+.vscode
+dist/
+
+# Files
+node_modules/
+.git/
+**/*.d.ts

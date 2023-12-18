@@ -1,0 +1,228 @@
+<!-- Welcome Message For New User -->
+<ng-container *ngIf="isNew === 'active'">
+  <div class="fixed z-50 inset-0 overflow-y-hidden h-screen">
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 overflow-y-hidden h-screen"></div>
+      <div class="relative bg-white rounded-lg p-8">
+        <div class="absolute top-5 right-3">
+          <div (click)="closeWelcome()" class="text-gray-400 cursor-pointer hover:text-gray-500">
+            <img src="assets/icons/close.svg" />
+          </div>
+        </div>
+        <div class="flex mb-4">
+          <div class="flex">
+            <img
+              class="p-1 border-gray-400 border-opacity-10 max-h-10 border-2 rounded-xl"
+              src="assets/logos/accAllyLogo.svg"
+            />
+          </div>
+          <div class="flex flex-col">
+            <div class="ml-2 flex text-xl font-['Inter-Semi'] text-gray-900">WELCOME!</div>
+            <div class="ml-2 flex-1 text-[rem] text-sm font-[Inter] text-[#6F6F6F]">
+              Let's take a short tour through integration page.
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="mt-2">
+          <div class="flex flex-row font-['Inter-Semi'] mr-2 text-sm text-blue-950 p-1 mb-2">
+            <img src="assets/icons/bulb.svg" />
+            <p class="ml-4">Start by clicking Add button for the platforms you like.</p>
+          </div>
+
+          <div class="flex flex-row font-['Inter-Semi'] mr-2 text-sm text-blue-950 p-1 mb-3">
+            <img src="assets/icons/bulb.svg" />
+            <p class="ml-4">
+              Click on 'Steps to Integrate' to learn more about extracting keys and erolling to a system.
+            </p>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <img src="assets/images/slack-sample.svg" />
+        </div>
+
+        <hr />
+
+        <div class="flex mt-4">
+          <button
+            class="bg-slate-100 w-1/2 mr-2 flex hover:bg-slate-300 text-black font-bold py-2 px-8 rounded-lg"
+            (click)="goTohelp()"
+          >
+            <span class="mr-2"><img src="assets/icons/menu/Help.svg" /></span>
+            I need full site Guide
+          </button>
+          <button
+            class="bg-primary-600 flex-1 w-1/2 ml-2 hover:bg-primary-400 text-white font-bold py-2 px-8 rounded-lg"
+            (click)="closeWelcome()"
+          >
+            Got It!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<!--  -->
+<div
+  class="content ml-12 h-screen transform ease-in-out duration-500 pt-20 px-8 md:px-2 pb-4"
+  [ngClass]="{ 'overflow-hidden': isNew === 'active' }"
+>
+  <div class="px-8">
+    <div class="flex justify-between items-center">
+      <!-- Existing texts -->
+      <div class="hidden md:block">
+        <div class="text-2xl font-extrabold text-[#0E0D46]">What apps do you use?</div>
+        <div class="mt-2 text-gray-500">Select applications based on your preferences and use</div>
+      </div>
+
+      <!-- mat-toggle Button -->
+      <div
+        class="tooltip-space"
+        matTooltip="Once this is enabled you will be able to view the apps,usage and details of SSO logins along with analytics."
+      >
+        <mat-slide-toggle
+          (change)="onToggleChange()"
+          [(ngModel)]="isChecked"
+          color="secondary"
+          class="mat-slide-toggle custom-toggle"
+        >
+          <div class="text-primary-600 font-['Inter-Semi']">Enable SSO Sync</div>
+        </mat-slide-toggle>
+      </div>
+    </div>
+    <div class="mt-6">
+      <div class="w-full sm:grid sm:grid-cols-2 sm:gap-4">
+        <div>
+          <div
+            *ngFor="let integration of leftIntegrations"
+            class="relative bg-white shadow-sm h-16 sm:h-20 rounded-md align-middle p-2 sm:p-6 border border-[#D2D9EF] mb-4 sm:mb-6"
+          >
+            <div
+              class="absolute top-1 sm:top-2 left-0 flex flex-col sm:flex-row flex-wrap items-center space-x-1 sm:space-x-2"
+            >
+              <img
+                [src]="integration.logo"
+                alt="Logo"
+                class="h-5 sm:h-8 mt-1 sm:mt-3 w-5 sm:w-8 ml-2 sm:ml-6 mr-2 sm:mr-4"
+              />
+              <div class="flex-col">
+                <div
+                  class="text-sm sm:font-[Inter-bold] font-[Inter] justify-start sm:text-xl mt-1 sm:mt-2"
+                  style="font-size: max(1vw, 14px)"
+                >
+                  {{ integration.name }}
+                </div>
+                <div
+                  class="hidden md:block text-xs font-[Inter] font-bold sm:text-sm"
+                  style="font-size: max(0.8vw, 10px)"
+                >
+                  {{ integration.link }}
+                  <div class="hidden md:block mt-[1px] sm:mt-[3px]">
+                    <span class="font-['Inter'] text-opacity-70 text-neutral-500 cursor-pointer"
+                      >{{ shortUrl(integration.homepage || '') }} |</span
+                    ><span
+                      (click)="helpFaqNav(integration.faq)"
+                      class="ml-1 sm:ml-2 underline text-primary-500 cursor-pointer hover:text-primary-700"
+                    >
+                      Steps to Integrate</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              *ngIf="!integration.enabled"
+              class="bg-[#5B1D78] hover:bg-purple-700 text-xs sm:text-sm text-white py-1 px-2 sm:px-4 rounded absolute top-1 sm:top-5 right-0 mr-2 sm:mr-6"
+              (click)="addIntegration(integration, false)"
+            >
+              Add
+            </button>
+            <button
+              *ngIf="integration.enabled"
+              class="bg-[#FFCECE] hover:bg-red-400 text-xs sm:text-sm text-[#FC2626] hover:text-white py-1 px-2 sm:px-4 rounded absolute top-1 sm:top-5 right-0 mr-2 sm:mr-6"
+              (click)="removeIntegration(integration, false)"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div
+            *ngFor="let integration of rightIntegrations"
+            class="relative bg-white shadow-sm h-16 sm:h-20 rounded-md align-middle p-2 sm:p-6 border border-[#D2D9EF] mb-4 sm:mb-6"
+          >
+            <div
+              class="absolute top-1 sm:top-2 left-0 flex flex-col sm:flex-row flex-wrap items-center space-x-1 sm:space-x-2"
+            >
+              <img
+                [src]="integration.logo"
+                alt="Logo"
+                class="h-5 sm:h-8 mt-1 sm:mt-3 w-5 sm:w-8 ml-2 sm:ml-6 mr-2 sm:mr-4"
+              />
+              <div class="flex-col">
+                <div
+                  class="text-sm sm:font-[Inter-bold] font-[Inter] justify-start sm:text-xl mt-1 sm:mt-2"
+                  style="font-size: max(1vw, 14px)"
+                >
+                  {{ integration.name }}
+                </div>
+                <div
+                  class="hidden md:block text-xs font-[Inter] font-bold sm:text-sm"
+                  style="font-size: max(0.8vw, 10px)"
+                >
+                  {{ integration.link }}
+                  <div class="hidden md:block mt-[1px] sm:mt-[3px]">
+                    <span class="font-['Inter'] text-opacity-70 text-neutral-500 cursor-pointer"
+                      >{{ shortUrl(integration.homepage || '') }} |</span
+                    ><span
+                      (click)="helpFaqNav(integration.faq)"
+                      class="ml-1 sm:ml-2 underline text-primary-500 cursor-pointer hover:text-primary-700"
+                    >
+                      Steps to Integrate</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              *ngIf="!integration.enabled"
+              class="bg-[#5B1D78] hover:bg-purple-700 text-xs sm:text-sm text-white py-1 px-2 sm:px-4 rounded absolute top-1 sm:top-5 right-0 mr-2 sm:mr-6"
+              (click)="addIntegration(integration, false)"
+            >
+              Add
+            </button>
+            <button
+              *ngIf="integration.enabled"
+              class="bg-[#FFCECE] hover:bg-red-400 text-xs sm:text-sm text-[#FC2626] hover:text-white py-1 px-2 sm:px-4 rounded absolute top-1 sm:top-5 right-0 mr-2 sm:mr-6"
+              (click)="removeIntegration(integration, false)"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <img *ngIf="!leftIntegrations.length" src="assets/images/loader.svg" class="loading-image" />
+
+    <div class="relative bg-white shadow-sm h-48 rounded-md align-middle p-6 border-[#E9ECEF] mb-6 border-2">
+      <div class="top-2 left-0 flex items-center space-x-2">
+        <div class="flex-col">
+          <div class="text-2xl font-extrabold font-[Inter-Bold] text-[#0E0D46]">
+            Don't See An Application You'd Like?
+          </div>
+          <div class="text-[rem] font-[Inter] text-[#6F6F6F]">Help us bring your favorite application to you.</div>
+        </div>
+      </div>
+      <button
+        (click)="requestIntegration()"
+        class="bg-[#5B1D78] hover:bg-purple-700 text-white px-4 py-2 mt-4 rounded-lg cursor-pointer flex items-center"
+      >
+        <span class="mr-2 font-[Inter]">Request here</span>
+        <img src="assets/icons/chevron.svg" />
+      </button>
+    </div>
+  </div>
+</div>

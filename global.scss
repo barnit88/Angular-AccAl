@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// for the uniformity of the form inputs.
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: 'SourceSans';
+  src: url(./assets/fonts/SourceSans3-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: 'Russo One';
+  src: url(./assets/fonts/RussoOne-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url(./assets//fonts/inter/Inter-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Inter-Bold';
+  src: url(./assets//fonts/inter/Inter-Bold.ttf);
+}
+
+@font-face {
+  font-family: 'Inter-extrabold';
+  src: url(./assets//fonts/inter/Inter-ExtraBold.ttf);
+}
+
+@font-face {
+  font-family: 'Inter-Semi';
+  src: url(./assets//fonts/inter/Inter-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url(./assets//fonts/poppins/Poppins-Regular.ttf);
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 20px !important;
+}

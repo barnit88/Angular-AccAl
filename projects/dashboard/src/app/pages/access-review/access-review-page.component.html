@@ -1,0 +1,26 @@
+<div class="content ml-12 mt-10 h-auto min-h-screen transform ease-in-out duration-500 pt-1 px-2 md:px-5 pb-4">
+  <app-tabs [tabItems]="tabItems" (activeTav)="getActiveTab($event)"></app-tabs>
+
+  <div class="px-10">
+    <ng-container [ngSwitch]="active">
+      <div *ngSwitchCase="'Review Report'">
+        <ng-content *ngTemplateOutlet="Review"></ng-content>
+      </div>
+      <div *ngSwitchCase="'Results'">
+        <ng-container *ngTemplateOutlet="Results"></ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #Review>
+  <div class="w-[60%]">
+    <app-form-component [fieldJson]="fieldJson"></app-form-component>
+  </div>
+</ng-template>
+
+<ng-template #Results>
+  <div *ngFor="let item of cardData">
+    <app-card [data]="item"></app-card>
+  </div>
+</ng-template>

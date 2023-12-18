@@ -1,0 +1,265 @@
+<div class="transform ease-in-out duration-500">
+  <form class="text-[#131339]" [formGroup]="form">
+    <div class="mb-4" *ngFor="let field of fieldJson">
+      <!--For form name/hedaers-->
+      <div class="mb-4 flex justify-between" *ngIf="field.type == 'header'">
+        <label for="username" class="block text-inherit font-bold mb-2">{{ field.label }}</label>
+        <div class="right-0">
+          <img [src]="field.image" class="w-6 h-6" />
+        </div>
+      </div>
+      <!--  -->
+
+      <!--For normal inputs-->
+      <div *ngIf="field.type == 'input'">
+        <ng-container *ngTemplateOutlet="label; context: { fieldData: field }"></ng-container>
+        <div>
+          <input
+            class="block p-2.5 w-full text-sm h-[2.5rem] text-gray-900 rounded-lg border border-secondary-100"
+            [type]="field.subtype"
+            [class]="field.class"
+            [formControlName]="field.key ? field.key : ''"
+            [disabled]="field.disabled ?? false"
+          />
+        </div>
+        <ng-container *ngTemplateOutlet="error; context: { fieldData: field }"></ng-container>
+      </div>
+      <!--  -->
+
+      <!--For Switch Checkbox -->
+
+      <div *ngIf="field.type == 'checkbox'">
+        <div class="w-full inline-block">
+          <label
+            class="cursor-pointer mr-[1rem] float-left text-secondary-700 font-[Inter] font-[400] text-[1.1rem]"
+            [for]="field.key"
+            >{{ field.label }}</label
+          >
+          <label class="cursor-pointer container float-right">
+            <input [id]="field.key" type="checkbox" [formControlName]="field.key" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <!--  -->
+
+      <!--For select inputs-->
+      <div *ngIf="field.type == 'select'">
+        <ng-container *ngTemplateOutlet="label; context: { fieldData: field }"></ng-container>
+        <select2
+          [formControlName]="field.key"
+          [data]="field.data"
+          [placeholder]="'Select Roles'"
+          [multiple]="false"
+          (click)="onSelectClick(field.key)"
+          [class]="'rounded-[10px] text-white border-secondary-100 focus:outline-none focus:border-purple-500'"
+          [disabled]="field.disabled ?? false"
+        >
+        </select2>
+        <ng-container *ngTemplateOutlet="error; context: { fieldData: field }"></ng-container>
+      </div>
+      <!--  -->
+
+      <!-- For Date Picker -->
+      <div *ngIf="field.type === 'date' && field.subtype === 'date'">
+        <ng-container *ngTemplateOutlet="label; context: { fieldData: field }"></ng-container>
+        <mat-form-field class="w-full h-[40px] rounded-[10px] border-secondary-100 border">
+          <input
+            class="border rounded-[10px]"
+            matInput
+            [matDatepicker]="picker"
+            [formControlName]="field.key"
+            [disabled]="true"
+            [placeholder]="field.placeholder"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+            [disabled]="field.disabled ?? false"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker [disabled]="field.disabled ?? false"></mat-datepicker>
+        </mat-form-field>
+        <ng-container *ngTemplateOutlet="error; context: { fieldData: field }"></ng-container>
+      </div>
+      <!--  -->
+
+      <!-- For Date Range Picker -->
+      <div *ngIf="field.type === 'date' && field.subtype === 'daterangewithchips'">
+        <ng-container *ngTemplateOutlet="label; context: { fieldData: field }"></ng-container>
+        <mat-form-field class="w-full rounded-[10px] border-secondary-100 border">
+          <mat-date-range-input [rangePicker]="daterangepicker">
+            <input
+              matStartDate
+              [formControlName]="field.key.start"
+              [disabled]="field.disabled ?? false"
+              [placeholder]="field.placeholder.start"
+            />
+            <input
+              matEndDate
+              [formControlName]="field.key.end"
+              [disabled]="field.disabled ?? false"
+              [placeholder]="field.placeholder.end"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="daterangepicker"
+            [disabled]="field.disabled ?? false"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #daterangepicker [disabled]="false"></mat-date-range-picker>
+        </mat-form-field>
+        <span class="text-red-500" *ngIf="form.get(field.key.start)?.invalid && form.get(field.key.start)?.touched">{{
+          field.errorMessage.start
+        }}</span>
+
+        <span class="text-red-500" *ngIf="form.get(field.key.end)?.invalid && form.get(field.key.end)?.touched">{{
+          field.errorMessage.end
+        }}</span>
+
+        <div>
+          <div class="flex flex-wrap">
+            <span id="Monthly"
+              class="cursor-pointer mx-[4px] mt-[4px] border-[1px] border-solid border-secondary-100 rounded-[5px] px-[1rem] py-[4px]" (click)="setDateRange($event)">
+              Monthly </span>
+            <span id="Quaterly"
+              class="cursor-pointer mx-[4px] mt-[4px] border-[1px] border-solid border-secondary-100 rounded-[5px] px-[1rem] py-[4px]" (click)="setDateRange($event)">
+              Quaterly</span>
+            <span id="Semi-Quaterly"
+              class="cursor-pointer mx-[4px] mt-[4px] border-[1px] border-solid border-secondary-100 rounded-[5px] px-[1rem] py-[4px]" (click)="setDateRange($event)">
+              Semi - Quaterly</span>
+            <span id="Yearly"
+              class="cursor-pointer mx-[4px] mt-[4px] border-[1px] border-solid border-secondary-100 rounded-[5px] px-[1rem] py-[4px]" (click)="setDateRange($event)">
+              Yearly</span>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+
+      <!--For textarea inputs-->
+      <div *ngIf="field.type == 'textarea'">
+        <ng-container *ngTemplateOutlet="label; context: { fieldData: field }"></ng-container>
+        <textarea
+          rows="4"
+          class="block p-2.5 h-[2.5rem] w-full text-sm text-gray-900 rounded-lg border border-secondary-100"
+          [formControlName]="field.key ? field.key : ''"
+          [disabled]="field.disabled ?? false"
+        ></textarea>
+        <ng-container *ngTemplateOutlet="error; context: { fieldData: field }"></ng-container>
+      </div>
+      <!--  -->
+
+      <!-- Remove Label Button  -->
+
+      <div *ngIf="field.type == 'user-remove'">
+        <div class="flex flex-row justify-between">
+          <div class="flex flex-row px-[1rem] py-[0.5rem]">
+            <img class="h-[1.7rem] w-[1.7rem] mr-[0.5rem] object-cover rounded-full" [src]="field.label_user_img_src" />
+            <span class="font-[Inter] text-[1.125rem] font-[600] text-neutral-900">{{ field.label_user }}</span>
+          </div>
+          <div>
+            <button class="rounded-[0.625rem] bg-red-600 text-white text-center px-[1rem] py-[0.5rem]">
+              Remove User
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+
+      <!-- For Chips -->
+      <div *ngIf="field.type === 'chips' && field.subtype === 'chips'">
+        <div class="flex flex-wrap">
+          <span
+            class="cursor-default mx-[4px] mt-[4px] border-[1px] border-solid border-secondary-100 rounded-[5px] px-[1rem] py-[4px]"
+            >{{ field.label }}</span
+          >
+          <ng-container *ngTemplateOutlet="chipsContainer"></ng-container>
+        </div>
+      </div>
+
+      <ng-template #chipsContainer>
+        <ng-container *ngFor="let item of fieldJson">
+          <span
+            *ngIf="item.type === 'chips' && item.subtype !== 'chips'"
+            class="cursor-default mx-[4px] mt-[4px] border-[1px] border-solid border-secondary-100 rounded-[5px] px-[1rem] py-[4px]"
+            >{{ item.label }}</span
+          >
+        </ng-container>
+      </ng-template>
+      <!--  -->
+
+      <!-- For Submit Buttons-->
+      <div *ngIf="field.type === 'submit'" class="text-right mt-8 w-full">
+        <div>
+          <button
+            class="bg-primary-500 hover:bg-primary-700 border-secondary-100 border border-solid rounded-[0.6rem] text-base text-white font-[Inter] font-[500] p-4 py-2 px-4 mr-4 h-12"
+            *ngIf="field.type === 'submit'"
+            type="submit"
+            [disabled]="form.invalid"
+            [ngClass]="{ 'opacity-50 cursor-not-allowed': form.invalid }"
+            [class]="field.class"
+            (click)="field?.submit(getFormValue(form.value))"
+          >
+            {{ field.label }}
+          </button>
+          <ng-container *ngTemplateOutlet="buttonContainer"></ng-container>
+        </div>
+      </div>
+      <!--  -->
+    </div>
+  </form>
+</div>
+
+<ng-template #buttonContainer>
+  <ng-container *ngFor="let field of fieldJson">
+    <button
+      type="button"
+      *ngIf="field.type === 'button'"
+      class="bg-white border-secondary-100 border border-solid text-base hover:bg-slate-300 font-[Inter] font-[500] p-4 py-2 px-4 rounded-[0.6rem] mr-2 text-primary-500 h-12"
+      [class]="field.class"
+      (click)="field?.click()"
+    >
+      {{ field.label }}
+    </button>
+    <button
+      type="cancel"
+      *ngIf="field.type === 'clear'"
+      class="bg-white border-secondary-100 border border-solid text-base hover:bg-slate-300 font-[Inter] font-[500] p-4 py-2 px-4 rounded-[0.6rem] mr-2 text-primary-500 h-12"
+      [class]="field.class"
+      (click)="onClear()"
+    >
+      {{ field.label }}
+    </button>
+  </ng-container>
+</ng-template>
+
+<ng-template #label let-field="fieldData">
+  <div class="pb-[8px]">
+    <label class="font-[Inter] font-[400] text-[18px] pb-[10px]"
+      >{{ field.label }} <span class="text-red-500" *ngIf="field.validators.required"> *</span></label
+    >
+  </div>
+</ng-template>
+
+<ng-template #error let-field="fieldData">
+  <span class="text-red-500" *ngIf="form.get(field.key)?.invalid && form.get(field.key)?.touched">{{
+    field.errorMessage
+  }}</span>
+</ng-template>
+
+<!--
+  <div *ngIf="field.type == 'select'">
+    <label class="text-xs text-[18px]">{{ field.label }} <span class="text-red-500" *ngIf="field.validators.required">
+        *</span></label>
+      <select class="rounded-[10px] w-full" [formControlName]="field.key ? field.key : ''">
+              <option class="box-option">Select</option>
+              <option
+                class="box-option"
+                *ngFor="let item of field.data"
+                [value]="item.Id"
+                [selected]="field.value === item.Id"
+              >
+                {{ item.Value }}
+              </option>
+      </select>
+  </div> 
+-->

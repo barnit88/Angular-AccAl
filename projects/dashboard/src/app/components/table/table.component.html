@@ -1,0 +1,88 @@
+<div [hidden]="loading">
+  <div *ngIf="mergeList.length > 1" class="flex justify-start z-50 absolute top-14">
+    <button
+      (click)="mergeUsers()"
+      class="rounded-[0.625rem] bg-white text-primary-600 border-2 cursor-pointer border-primary-700 text-center px-[1rem] py-[0.5rem] inline-flex items-center transform transition duration-300 ease-in-out hover:bg-primary-200"
+    >
+      <!-- <img src="assets/icons/add-user.svg" alt="Add user" class="ml-2 h-15 w-15" /> -->
+      Merge Users
+    </button>
+  </div>
+  <div *ngIf="false" class="flex justify-end z-50 absolute right-0 -top-4">
+    <button
+      (click)="openUserAddModal()"
+      class="text-white font-bold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out hover:scale-110"
+    >
+      <img src="assets/icons/add-user.svg" alt="Add user" class="ml-2 h-15 w-15" />
+    </button>
+  </div>
+
+  <!--switch view-->
+  <div class="fixed hidden sm:flex z-10 right-64">
+    <p class="text-sm font-[Inter-Semi] text-[#6F6F6F] mt-3">Switch View</p>
+    <mat-radio-group [(ngModel)]="selectedOption" class="radio-group" (change)="onOptionChange($event)">
+      <div *ngFor="let option of options; index as i" class="radio-button">
+        <mat-radio-button [value]="option.value">
+          <img width="25" height="25" src="{{ option.imagePath }}" />
+        </mat-radio-button>
+      </div>
+    </mat-radio-group>
+  </div>
+  <!-- switch view-->
+
+  <ng-container *ngIf="!isSmallScreen">
+    <table id="mainTable" datatable [dtOptions]="dtOptions" style="width: 100%" class="row-border hover"></table>
+  </ng-container>
+  <ng-container *ngIf="isSmallScreen">
+    <div
+      class="flex mb-2 flex-col md:justify-start justify-center text-['Inter'] w-full bg-red-200 text-white p-2 rounded"
+    >
+      Limited actions supported in list view. View the webapp in table view for full access.
+    </div>
+    <!--Cards for smaller view-->
+    <mat-card
+      *ngFor="let user of availableUsers"
+      class="example-card mt-6 cursor-pointer min-h-40 border-2 border-primary-300 shadow-lg bg-image transition-transform duration-200 sm:hover:scale-95 hover:bg-primary-50"
+      (click)="(null)"
+    >
+      <div class="custom-header">
+        <mat-card-header>
+          <mat-card-subtitle class="justify-end flex-wrap mb-2">
+            <p><span class="bg-primary-300 text-white p-1 rounded">Name :</span> {{ user.full_name }}</p>
+          </mat-card-subtitle>
+        </mat-card-header>
+      </div>
+      <mat-card-content class="text-sm mt-2 font-[Inter] text-[#6F6F6F] flex-row">
+        <ng-container class="font-['Inter'] flex text-sm mt-2 mb-2">
+          <p *ngIf="user.email.length <= 40; else truncatedEmail">
+            <span class="bg-primary-300 text-white p-1 mt-2 rounded">Email :</span> {{ user.email }}
+          </p>
+          <ng-template #truncatedEmail>
+            <p class="truncated-text">
+              <span class="bg-primary-300 p-1 text-white rounded">Email :</span>{{ user.email.substring(0, 40) }}...
+            </p>
+          </ng-template>
+        </ng-container>
+        <hr class="mt-3 mb-2 font-bold border-t-2 border-primary-800 opacity-10" />
+        <div class="flex justify-between">
+          <div class="flex flex-col">
+            <div class="bg-primary-300 p-1 text-white rounded">Application Used:</div>
+            <div class="flex flex-row justify-self-start">
+              <img
+                *ngFor="let imgSrc of AvailableApps(user)"
+                [src]="imgSrc"
+                alt="Logo"
+                class="h-8 m-1 w-8 mt-4 sm:h-8 sm:m-2 sm:w-8 bg-white rounded-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!--End of Cards for smaller view-->
+  </ng-container>
+</div>
+<div class="flex flex-row justify-center loading-image border-2 border-gray-200 shadow" *ngIf="loading">
+  <img src="assets/images/loader.svg" />
+</div>

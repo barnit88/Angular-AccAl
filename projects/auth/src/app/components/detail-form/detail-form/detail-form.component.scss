@@ -1,0 +1,26 @@
+::ng-deep {
+  :root {
+    --select2-selection-border-radius: 4px;
+    --select2-selection-background: white;
+    --select2-selection-disabled-background: #eee;
+    --select2-selection-border-color: #d2d9ef;
+    --select2-selection-focus-border-color: #325ea0;
+    --select2-selection-text-color: #87968d;
+    --select2-selection-height: 40px;
+    --select2-option-selected-background: #d2d9ef;
+
+    --select2-arrow-color: rgb(146, 20, 204) !important;
+    --select2-single-height: 40px;
+    --select2-multiple-height: 40px;
+  }
+
+  .select2-selection--single {
+    height: 42px !important;
+  }
+
+  .select2-selection__rendered {
+    font-size: small !important;
+    font-family: 'Inter';
+    line-height: 38px !important;
+  }
+}

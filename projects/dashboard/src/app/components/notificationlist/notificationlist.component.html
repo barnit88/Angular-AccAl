@@ -1,0 +1,27 @@
+<div>
+  <div (click)="toggleNotification($event)" class="cursor-pointer">
+    <img src="assets/logos/Notification.svg" />
+  </div>
+  <div
+    class="border-solid flex flex-col absolute top-[1.8rem] left-[-20rem] z-100 w-[31.125rem] bg-white h-[26.5rem] rounded-[0.625rem] notifcationShadow"
+    [ngClass]="isNotificationOpen ? '' : 'hidden'"
+  >
+    <div class="flex pt-[1.875rem] pb-[1.25rem]">
+      <header class="ml-[2.5rem] text-[1.125rem] text-neutral-900 font-[Inter] font-[600]">Notification</header>
+    </div>
+    <div class="h-[100%] overflow-y-scroll">
+      <ul>
+        <li class="p-[1.25rem]" *ngFor="let notifcation of notifications">
+          <div class="flex flex-row pb-[1.25rem] pr-[1.25rem] border-secondary-100 border-b border-solid">
+            <div class="basis-[20%]">
+              <img [src]="notifcation.imgUrl" />
+            </div>
+            <div class="text-neutral-900 text-[1rem] font-[Inter-Bold] font-[200]">
+              {{ notifcation.text }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<button
+  (click)="updateServer()"
+  class="hidden md:block absolute right-0 bottom-0 p-1 bg-primary-50 opacity-50"
+  *ngIf="bruceServer"
+>
+  🌏 Server Pointed at {{ bruceServer }}
+</button>
+<router-outlet></router-outlet>

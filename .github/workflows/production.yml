@@ -1,0 +1,38 @@
+name: Deploy Gotham (Prod)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
+    steps:
+      - name: Login
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_email: ${{ secrets.GCP_EMAIL }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create environment-var.service.ts
+        run: |
+          echo ${{secrets.LIVE_ENV}} | base64 --decode > projects/shared/src/lib/environment-var.service.ts
+
+      - name: Build Docker image
+        run: docker build --build-arg sourceMap=false --build-arg denv=production -t $IMAGE_NAME --target=production .
+
+      - name: Push Docker image
+        run: docker push $IMAGE_NAME
+
+      - name: Deploy Docker image
+        run: gcloud run deploy ${{ secrets.GCP_APP_NAME }} --image $IMAGE_NAME --min-instances 1 --region us-central1 --platform managed --port=80 --set-env-vars NODE_ENV=production

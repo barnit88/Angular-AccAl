@@ -1,0 +1,29 @@
+<div class="content ml-12 h-screen transform ease-in-out duration-500 pb-4">
+  <div class="relative h-[210px]">
+    <div class="h-[140px] w-full">
+      <img class="object-cover rounded-b-2xl w-full h-full" src="assets/images/SettingGraphicSide.svg" />
+    </div>
+    <div class="absolute top-[60px] left-[3%] w-fit h-fit overflow-hidden">
+      <!-- <app-profile-pic></app-profile-pic> -->
+    </div>
+  </div>
+
+  <div>
+    <app-tabs [tabItems]="tabItems" (activeTab)="getActiveTab($event)"></app-tabs>
+
+    <div class="pl-[3.5rem]">
+      <ng-container [ngSwitch]="active">
+        <div *ngSwitchCase="'Profile'">
+          <div class="w-[40%]">
+            <app-form-component [fieldJson]="profileFormConfig"></app-form-component>
+          </div>
+        </div>
+        <div *ngSwitchCase="'Password'">
+          <div class="w-[40%]">
+            <app-form-component [fieldJson]="passwordFormConfig"></app-form-component>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

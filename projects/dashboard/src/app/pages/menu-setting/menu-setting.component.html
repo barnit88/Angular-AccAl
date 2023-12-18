@@ -1,0 +1,96 @@
+<div class="content bg-white ml-12 h-screen transform ease-in-out duration-500 pb-4">
+  <div class="relative h-[210px]">
+    <div class="h-[140px] w-full">
+      <img class="object-cover rounded-b-2xl w-full h-full" src="assets/images/SettingGraphicSide.svg" />
+    </div>
+    <div class="absolute top-[60px] left-[3%] w-fit h-fit overflow-hidden">
+      <app-profile-pic></app-profile-pic>
+    </div>
+  </div>
+  <app-tabs [tabItems]="tabItems" (activeTab)="getActiveTab($event)"></app-tabs>
+  <div class="pl-[3.5rem]">
+    <ng-container [ngSwitch]="active">
+      <div *ngSwitchCase="'General Setting'">
+        <!-- General Setting -->
+        <div class="w-full h-full">
+          <div class="flex mt-[2rem]">
+            <!-- <div class="bg-white m-[1rem]">
+              <div class="pt-[1.2rem] pb-[2rem] relative">
+                <img src="assets/images/profile-image.jpeg" class="rounded-[3.15rem] h-[17.2rem] w-[17.2rem]" />
+                <div
+                  class="absolute bottom-[0.3rem] left-[2rem] w-[12.75rem] changelogo h-[3.2rem] rounded-[3.15rem] p-[0.5rem] flex"
+                >
+                  <img src="assets/icons/change-company-logo.svg" />
+                  <span class="font-[Poppins] ml-[1.25rem] pt-[0.4rem] text-[1rem] text-black">Change Logo</span>
+                </div>
+              </div>
+            </div> -->
+            <div class="basis-[40rem] shrink">
+              <app-form-component [fieldJson]="updateCompanyNameFormConfig"></app-form-component>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchCase="'User And Permisson'">
+        <!-- User And Permisson -->
+        <div class="flex flex-col w-fit my-[0.25rem] rounded-[1rem] box-shadow border-black border border-opacity-25 h-[33rem]">
+          <div class="px-[2rem] mt-[1.5625rem]">
+            <button
+              (click)="onAddMember()"
+              type="submit"
+              class="float-right cursor-pointer bg-primary-500 hover:bg-primary-700 border-secondary-100 border border-solid rounded-[0.6rem] text-base text-white font-[Inter] font-[500] py-2 px-4 mr-4"
+            >
+              Add Member
+            </button>
+          </div>
+          <div class="p-[1rem] w-[71.5rem] flex-grow">
+            <div class="pr-[0.5rem] overflow-hidden w-full max-h-[23rem] min-h-fit">
+              <table class="w-full">
+                <thead class="border-b border-secondary-100">
+                  <tr>
+                    <th scope="col" class="!font-normal text-left font-[Inter] text-[0.8rem] text-secondary-700 p-[1rem]">
+                      Member
+                    </th>
+                    <th scope="col" class="!font-normal text-left font-[Inter] text-[0.8rem] text-secondary-700 p-[1rem]">
+                      Roles
+                    </th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-secondary-100" *ngFor="let user of currentUserList">
+                    <td class="w-[45%] text-left font-[Inter] text-[0.8rem] text-secondary-700 p-[1rem]">
+                      <div class="flex w-full">
+                        <div class="mr-[1rem]">
+                          <img class="rounded-full h-[1.8rem] w-[1.8rem] object-cover" [src]="user.imgSrc" />
+                        </div>
+                        <div class="flex flex-col justify-center">
+                          <span class="text-center w-full">{{ user.name }}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="w-[45%] text-left font-[Inter] text-[0.8rem] text-secondary-700 p-[1rem]">
+                      {{ user.role }}
+                    </td>
+                    <td class="w-[10%] text-left font-[Inter] text-[0.8rem] text-secondary-700 p-[1rem]">
+                      <div class="px-[0.8rem] cursor-pointer" (click)="onEditMember(user.name, user.role)">
+                        <img class="cursor-pointer" src="assets/icons/three-dot.svg" />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="mb-[1rem]">
+            <app-pagination
+              class="float-right mr-[1rem]"
+              [count]="userCount"
+              (pageChange)="onPageChange($event)"
+            ></app-pagination>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="flex flex-row bg-white">
+  <div
+    class="cursor-pointer my-[0.25rem] mx-[0.5rem] border-[neutral-500] rounded-md border py-[3px] px-[8px] font-[900]"
+    (click)="onPageDown()"
+  >
+    <
+  </div>
+  <ng-template
+    [ngIf]="!(currentPageNumber + 2 >= pageCount) || pageCount <= 4 || (pageCount > 4 && currentPageNumber + 1 == pageCount)"
+  >
+    <ng-template
+      [ngIf]="
+        ((pageCount == 4 || pageCount == 3) && currentPageNumber == pageCount) ||
+        (pageCount > 4 && pageCount == currentPageNumber + 1)
+      "
+    >
+      <ng-container *ngTemplateOutlet="pageNumberButton; context: { page: currentPageNumber - 2 }"></ng-container>
+    </ng-template>
+    <ng-template [ngIf]="currentPageNumber != 1">
+      <ng-container *ngTemplateOutlet="pageNumberButton; context: { page: currentPageNumber - 1 }"></ng-container>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="pageNumberButton; context: { page: currentPageNumber }"></ng-container>
+    <ng-template
+      [ngIf]="
+        (pageCount > 1 && currentPageNumber != pageCount && (currentPageNumber != pageCount - 1 || pageCount <= 3)) ||
+        (pageCount == 4 && currentPageNumber != pageCount)
+      "
+    >
+      <ng-container *ngTemplateOutlet="pageNumberButton; context: { page: currentPageNumber + 1 }"></ng-container>
+    </ng-template>
+    <ng-template [ngIf]="pageCount > 2 && currentPageNumber == 1">
+      <ng-container
+        *ngTemplateOutlet="pageNumberButton; context: { page: currentPageNumber + 2 }"
+        class="border-solid border-[5px] border-gray-900"
+      ></ng-container>
+    </ng-template>
+  </ng-template>
+  <ng-template [ngIf]="(currentPageNumber + 2 == pageCount || pageCount == currentPageNumber) && pageCount > 4">
+    <ng-container *ngTemplateOutlet="pageNumberButton; context: { page: pageCount - 4 }"></ng-container>
+    <ng-container *ngTemplateOutlet="pageNumberButton; context: { page: pageCount - 3 }"></ng-container>
+    <ng-container *ngTemplateOutlet="pageNumberButton; context: { page: pageCount - 2 }"></ng-container>
+  </ng-template>
+  <ng-template [ngIf]="pageCount > 4 && pageCount - 1 != currentPageNumber">
+    <div class="my-[0.25rem] mx-[0.5rem] border-[neutral-500] rounded-md border py-[3px] px-[8px] cursor-pointer">...</div>
+  </ng-template>
+  <ng-template [ngIf]="pageCount > 4">
+    <ng-container *ngTemplateOutlet="pageNumberButton; context: { page: pageCount }"></ng-container>
+  </ng-template>
+
+  <div
+    class="my-[0.25rem] mx-[0.5rem] border-[neutral-500] rounded-md border py-[3px] px-[8px] font-[900] cursor-pointer"
+    (click)="onPageUp()"
+  >
+    >
+  </div>
+</div>
+
+<ng-template #pageNumberButton let-pageNumber="page">
+  <div
+    class="cursor-pointer my-[0.25rem] mx-[0.5rem] border-[neutral-500] rounded-md border py-[3px] px-[8px]"
+    [ngClass]="currentPageNumber == pageNumber ? 'border-solid border-black ' : ''"
+    (click)="onPageNumberClick(pageNumber)"
+  >
+    {{ pageNumber }}
+  </div>
+</ng-template>

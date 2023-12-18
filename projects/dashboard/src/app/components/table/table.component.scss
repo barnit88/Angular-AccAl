@@ -1,0 +1,164 @@
+.form-checkbox:checked {
+  --tw-bg-opacity: 1;
+  background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
+  /* bg-green-500 */
+}
+
+.form-checkbox:checked:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgba(16, 185, 129, var(--tw-ring-opacity));
+  box-shadow: 0 0 0 2px var(--tw-ring-color);
+  /* ring-green-500 */
+}
+
+input[type='checkbox']:checked {
+  // box-shadow: 0 0 0 3px orange;
+  color: rgb(52, 32, 122) !important;
+  border-radius: 5px;
+  background-color: rgb(74, 20, 110) !important;
+  border-color: rgb(22, 24, 107) !important;
+  content: '\2712' !important;
+  /* Checkmark symbol */
+}
+
+:host::ng-deep {
+  #mainTable_filter {
+    margin-bottom: 10px;
+    border-radius: 10px 0 0 10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    // margin-right: 100px !important; // this is for search text padding to accomodate user add button, enable this when add user button is enabed
+
+    textarea:focus,
+    input:focus {
+      outline: none;
+      border: 1px solid #7a848d;
+      border-radius: 5px;
+    }
+
+    textarea,
+    input {
+      outline: none;
+      border: 1px solid #8a9eaf;
+      border-radius: 5px;
+    }
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 0 7px !important;
+    /* Change the 10px value to adjust the spacing as needed */
+    font-family: 'Inter';
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+  }
+
+  thead {
+    /* HEADER TABLE */
+    margin-top: 5rem;
+    background: #321355;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    text-align: right;
+
+    th:first-child {
+      border-radius: 10px 0 0 10px;
+    }
+
+    th:last-child {
+      border-radius: 0 10px 10px 0;
+    }
+  }
+
+  td:first-child {
+    border-radius: 10px 0 0 10px;
+  }
+
+  td:last-child {
+    border-radius: 0 10px 10px 0;
+  }
+
+  tr.odd {
+    background: #ffffff !important;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    font-size: 12px !important;
+  }
+
+  tr.even {
+    // margin-top: 10px;
+    background: #f4f7fa !important;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    font-size: 12px !important;
+  }
+
+  .loading-image {
+    // background-image: url('projects/dashboard/src/assets/images/loader.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 50px;
+    /* Adjust the height based on your loading image size */
+  }
+
+  .dataTableAction {
+    background-color: #321355 !important;
+    color: white !important;
+    border-radius: 5px !important;
+  }
+}
+
+.tooltip:hover .tail {
+  background-color: inherit;
+}
+
+.tooltip .tail,
+.tooltip:hover .hidden {
+  display: block;
+}
+
+.tooltip .tail::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 0 5px 5px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent transparent currentColor;
+}
+
+.example-card {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.14), 0 1px 5px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bg-image {
+  background-image: url('../../../assets/images/pureBase.svg');
+  background-position: center 60px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.radio-group {
+  display: flex;
+}
+
+.radio-button {
+  margin-right: 10px;
+  /* adjust according to your needs */
+}

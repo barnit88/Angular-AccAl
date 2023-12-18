@@ -1,0 +1,144 @@
+<!-- Root container for popup -->
+<div class="z-[1000] inset-0 overflow-y-auto fixed transform ease-in-out duration-500" *ngIf="showPopup">
+  <!-- Background overlay -->
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-28 text-center sm:block sm:p-0">
+    <!-- Overlay item - click to close popup -->
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+
+    <!-- Modal panel -->
+    <div
+      style="margin-top: 100px"
+      class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+    >
+      <!-- Modal header -->
+      <!-- <div class="bg-purple-700 px-4 py-3 sm:px-6">
+          <h3 class="text-lg leading-6 font-medium text-white">New User</h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-300">Create a new user account.</p>
+        </div> -->
+
+      <!-- Modal body - form section -->
+      <div class="px-4 py-5 sm:p-6 text-[#131339]">
+        <form>
+          <!-- Form input field for user name -->
+          <div class="mb-4">
+            <label for="username" class="block text-inherit font-bold mb-2">Username Information</label>
+            <!-- <input type="text" id="username" class="w-full p-2 border-gray-400 rounded" placeholder="Enter username..."> -->
+            <div class="absolute right-7 top-6">
+              <!-- <label class="font-semibold text-inherit" for="first-name">{{ data }}</label> -->
+              <img [src]="data.image" class="w-6 h-6" />
+            </div>
+
+            <div class="flex justify-start font-[Inter]">
+              <div class="flex flex-col mr-36">
+                <label class="font-semibold text-inherit" for="first-name">First Name</label>
+                <div class="text-[#6F6F6F] text-sm">
+                  <!-- Your content here -->
+                  {{ data.first_name }}
+                </div>
+                <label class="font-semibold mt-3 text-inherit" for="real-name">Joined At</label>
+                <div class="text-[#6F6F6F] text-sm">
+                  <!-- Your content here -->
+                  March 1, 2020
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <label class="font-semibold text-inherit" for="first-name">Last Name</label>
+                <div class="text-[#6F6F6F] text-sm">
+                  <!-- Your content here -->
+                  {{ data.last_name }}
+                </div>
+                <label class="font-semibold mt-3 text-inherit" for="real-name">Last Activity</label>
+                <div class="text-[#6F6F6F] text-sm">
+                  <!-- Your content here -->
+                  {{ data[data.integration_key].last_active | date : 'longDate' }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <label for="username" class="block text-inherit font-bold mb-2">Manage Preferences</label>
+          <div class="flex flex-row justify-between">
+            <div class="flex text-inherit">Status</div>
+            <div class="flex">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" value="" class="sr-only peer" checked />
+                <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#5B1D78]"
+                ></div>
+              </label>
+            </div>
+          </div>
+          <div class="flex flex-row justify-between mt-4">
+            <div class="flex text-inherit">Enable 2Fa</div>
+            <div class="flex">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" value="" class="sr-only peer" checked />
+                <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#5B1D78]"
+                ></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Form multi-select field for user permission -->
+          <div class="mt-4 mb-4">
+            <label class="text-xs">Permissions</label>
+            <select2
+              [data]="permissionDropDown"
+              [placeholder]="'Select Permissions'"
+              [multiple]="true"
+              class="dashboard-dropdown"
+            >
+            </select2>
+          </div>
+
+          <!-- Form multi-select field for user group -->
+          <div class="mb-4">
+            <label class="text-xs">Roles</label>
+            <select2
+              [data]="roleDropDownData"
+              [multiple]="true"
+              [listPosition]="'above'"
+              [placeholder]="'Select Roles'"
+              class="bg-blue-500 text-white rounded-md border-transparent focus:outline-none focus:border-purple-500"
+            >
+            </select2>
+          </div>
+
+          <div class="mb-4">
+            <label class="text-xs">Groups</label>
+            <select2
+              [data]="groupDropDownData"
+              [multiple]="true"
+              [listPosition]="'above'"
+              [placeholder]="'Select Groups'"
+              class="bg-blue-500 text-white rounded-md border-transparent focus:outline-none focus:border-purple-500"
+            >
+            </select2>
+          </div>
+
+          <!-- Form submit button -->
+          <div class="mt-8 pt-16 text-right">
+            <button
+              type="button"
+              style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), -2px -2px 4px rgba(0, 0, 0, 0.25)"
+              class="bg-white hover:bg-slate-300 shadow p-4 font-bold py-2 px-4 rounded mr-2 text-[#5B1D78]"
+              (click)="cancelPopup()"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), -2px -2px 4px rgba(0, 0, 0, 0.25)"
+              class="bg-[#5B1D78] hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+              (click)="submitForm()"
+            >
+              Confirm
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

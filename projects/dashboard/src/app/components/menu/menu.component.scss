@@ -1,0 +1,286 @@
+.sidebarShadow {
+  box-shadow: 1px 1px 10px 5px rgba(17, 38, 146, 0.07);
+}
+
+.menu-bg {
+  /* Overview */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 8px 24px;
+
+  width: 233px;
+  height: 44px;
+
+  background: linear-gradient(96.98deg, #5b1d78 6.3%, #5b1d78 186.02%);
+  /* 0048B2 Primary Color Shadow 25% */
+  box-shadow: 0px 2px 4px rgba(138, 146, 166, 0.3);
+  border-radius: 4px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  /* Messages */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 57px;
+
+  width: 123px;
+  height: 28px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  /* Messages */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+
+  width: 123px;
+  height: 28px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  /* Iconly/Bulk/Category */
+
+  width: 24px;
+  height: 24px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  /* Category */
+
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 2px;
+  top: 2px;
+
+  /* Fill 1 */
+
+  position: absolute;
+  left: 56.4%;
+  right: 8.33%;
+  top: 8.33%;
+  bottom: 56.11%;
+
+  /* FFFFFF Bg 1 */
+  background: #ffffff;
+  mix-blend-mode: normal;
+  opacity: 0.4;
+
+  /* Combined Shape */
+
+  position: absolute;
+  left: 8.33%;
+  right: 8.33%;
+  top: 8.33%;
+  bottom: 8.33%;
+
+  /* FFFFFF Bg 1 */
+  background: #ffffff;
+
+  /* Fill 4 */
+
+  position: absolute;
+  left: 8.33%;
+  right: 56.4%;
+  top: 8.33%;
+  bottom: 56.11%;
+
+  background: #130f26;
+
+  /* Fill 7 */
+
+  position: absolute;
+  left: 8.33%;
+  right: 56.4%;
+  top: 56.11%;
+  bottom: 8.33%;
+
+  background: #130f26;
+
+  /* Fill 10 */
+
+  position: absolute;
+  left: 56.4%;
+  right: 8.33%;
+  top: 56.11%;
+  bottom: 8.33%;
+
+  background: #130f26;
+
+  /* Menu */
+
+  width: 83px;
+  height: 28px;
+
+  /* H6 16px Regular Inter */
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 175%;
+  /* identical to box height, or 28px */
+
+  /* FFFFFF Bg 1 */
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+  /* Notification */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+
+  display: none;
+  width: 24px;
+  height: 24px;
+
+  background: #fc5a5a;
+  border-radius: 32px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+  /* Frame 353 */
+
+  width: 16px;
+  height: 16px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  /* Number */
+
+  position: absolute;
+  width: 8px;
+  height: 20px;
+  left: calc(50% - 8px / 2);
+  top: calc(50% - 20px / 2);
+
+  /* Small Text 13px Poppins */
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  /* identical to box height */
+
+  color: #ffffff;
+}
+
+.white-glow {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgba(255, 255, 255, var(--tw-ring-opacity));
+}
+
+.close-icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+}
+
+.helpIcon:hover path {
+  stroke: red;
+}
+
+.hamburger {
+  padding: 15px 10px;
+  display: inline-block;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: #efe8f2ff;
+  text-transform: none;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  overflow: visible;
+  position: relative; // ADD THIS LINE
+}
+
+.hamburger-box {
+  width: 40px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -2px;
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 40px;
+  height: 4px;
+  background-color: #9437b4;
+  position: absolute;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+  content: '';
+  display: block;
+}
+
+.hamburger-inner::before {
+  top: -10px;
+}
+
+.hamburger-inner::after {
+  bottom: -10px;
+}
+
+.hamburger--squeeze.is-active .hamburger-inner {
+  transform: rotate(45deg);
+}
+
+.hamburger--squeeze.is-active .hamburger-inner::before {
+  transform: rotate(-45deg);
+}
+
+.hamburger--squeeze.is-active .hamburger-inner::after {
+  opacity: 0;
+}

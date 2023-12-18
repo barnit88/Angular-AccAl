@@ -1,0 +1,8 @@
+.cus-check {
+  .custom-checkbox:checked::before {
+    background-color: #10b981;
+    /* Replace with your desired color */
+    border-color: #10b981;
+    /* Replace with your desired color */
+  }
+}

@@ -1,0 +1,11 @@
+textarea:focus,
+input:focus {
+  outline: none;
+  border: 1px solid #c8e2f7;
+}
+
+textarea,
+input {
+  outline: none;
+  border: 1px solid #c8e2f7;
+}
